@@ -1,5 +1,5 @@
 #include <iostream>
-#include <unordered_set>
+#include <map>
 #include <string>
 
 using namespace std;
@@ -8,7 +8,7 @@ int main() {
 
 	string first, second;
 
-	unordered_set<char> set;
+	map<char, int> firstMap, secondMap;
 
 	bool isAnagram = true;
 
@@ -19,16 +19,20 @@ int main() {
 	std::cin >> second;
 
 	for (auto& ch : first) {
-		set.insert(ch);
+		if (firstMap.count(ch) == 0) firstMap.insert(pair<char, int>(ch, 1));
+		else firstMap[ch]++;
 	}
 
-	//checks for every symbol of the second string is it found in the set from the first string
 	for (auto& ch : second) {
-		if (set.count(ch) == 0) { isAnagram = false; break;}
+		if (secondMap.count(ch) == 0) secondMap.insert(pair<char, int>(ch, 1));
+		else secondMap[ch]++;
 	}
 	
-	if (isAnagram) std::cout << "The second word can be rearranged to be equal to the first one";
-	else std::cout << "The second word cannot be rearranged to be equal to the first one";
+	for (auto& elem : firstMap) {
+		if (secondMap.count(elem.first) == firstMap.count(elem.first)) continue;
+		else { isAnagram = false; break; }
+	}
 
-	return 0;
+	if (isAnagram) std::cout << "The second string can be rearranged to look like the first one" << endl;
+	else std::cout << "The second string cannot be rearranged to look like the first one" << endl;
 }
