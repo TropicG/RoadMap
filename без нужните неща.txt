@@ -1,0 +1,1 @@
+Без tries, intervals, heaps, greedy, advanced graphs, math and geometry, 2d dp, 1d dp
